@@ -1,0 +1,130 @@
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: hsl(240, 4%, 16%);
+  /* background: linear-gradient(
+    -45deg,
+    hsl(0, 43%, 3%),
+    hsl(0, 57%, 5%),
+    hsl(0, 76%, 3%),
+    hsl(0, 43%, 3%)
+    ); */
+}
+
+#root {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #202020;
+  cursor: pointer;
+}
+
+.player-container {
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  border-collapse: collapse;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  padding: 8px;
+  padding-top: 36px;
+}
+
+.player-header {
+  font-family: "Play", sans-serif;
+  font-size: 20px;
+}
+
+.single-map {
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid hsl(0, 0%, 10%);
+  border-radius: 8px;
+  height: 3.25rem;
+}
+
+.map-name {
+  font-family: "Play", sans-serif;
+  font-size: 20px;
+  padding-left: 6px;
+}
+
+.inner-left {
+  text-align: right;
+  margin-right: 5px;
+}
+
+.clear-time {
+  color: hsla(0, 0%, 75%, 0.7);
+}
+
+.cleared-hoe {
+  background: rgb(51, 51, 51);
+  background: radial-gradient(circle, hsl(0, 0%, 22%) 0%, hsl(0, 0%, 19%) 130%);
+  .cleared-text {
+    color: rgb(57, 206, 20);
+  }
+}
+
+.not-cleared {
+  background-color: rgb(27, 27, 27);
+  color: rgb(167, 167, 167);
+}
+
+.not-cleared > .inner-left > .clear-time {
+  text-shadow: none;
+}
+.sort-container {
+  background-color: hsl(0, 0%, 22%);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  height: 1.75rem;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  button {
+    height: 1.5rem;
+    color: hsla(0, 0%, 100%, 0.87);
+    font-size: 12px;
+    text-align: center;
+    text-justify: center;
+    padding: 0;
+    width: 2rem;
+  }
+}
+
+.sort-inner-container {
+  font-family: "Play", sans-serif;
+  padding-left: 8px;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  height: 1.75rem;
+  width: 25rem;
+}
