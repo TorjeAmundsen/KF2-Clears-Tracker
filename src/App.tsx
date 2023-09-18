@@ -3,7 +3,7 @@ import { hellOnEarth } from "./Achievements";
 import "./App.css";
 import Map from "./components/Map";
 import SortingOptions from "./components/SortingOptions";
-import { AchievementData, FlattenedData, AchievementIndex } from "./Types";
+import { AchievementData, FlattenedData } from "./Types";
 
 const URLS = [
   {
@@ -22,6 +22,7 @@ const createDateOrZero = (epochInSeconds: number): Date => {
 };
 
 const createMapList = (data: FlattenedData[]) => {
+  if (!data.length) return [];
   const mapList = [];
   for (const map of data[0].achievements) {
     mapList.push(map.mapName);
@@ -53,6 +54,7 @@ const flattenData = ({ playerstats }: AchievementData, name: string): FlattenedD
 export default function App() {
   const [playerData, setPlayerData] = useState<FlattenedData[]>([]);
   const [hideClearedMaps, setHideClearedMaps] = useState(false);
+  const [mapList, setMapList] = useState<string[]>([]);
 
   const fetchData = (url: string, name: string) => {
     fetch(url)
@@ -76,14 +78,16 @@ export default function App() {
   };
 
   useEffect(() => {
-    setPlayerData([]);
     for (const { steamId, name } of URLS) {
       const url = "https://kf2-tracker-8bea7cdd90bc.herokuapp.com/" + steamId;
       fetchData(url, name);
     }
   }, []);
 
-  const mapList = createMapList(playerData);
+  useEffect(() => {
+    const newMapList = createMapList(playerData);
+    if (newMapList) setMapList(newMapList);
+  }, [playerData]);
 
   return (
     <>

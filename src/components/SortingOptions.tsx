@@ -3,7 +3,7 @@ import { FlattenedData } from "../Types";
 
 type Props = {
   sortPlayerData: (
-    attribute: "map" | "cleared" | "clearTime" | "index",
+    attribute: "mapName" | "cleared" | "clearTime" | "index",
     direction: number,
     data: FlattenedData[]
   ) => void;
@@ -23,7 +23,7 @@ export default function SortingOptions({
       <button onClick={() => setHideClearedMaps((prev) => !prev)}>
         {hideClearedMaps ? "Show " : "Hide "}cleared maps
       </button>
-      <SortButtons sortPlayerData={sortPlayerData} playerData={playerData} attribute="map" />
+      <SortButtons sortPlayerData={sortPlayerData} playerData={playerData} attribute="mapName" />
       <SortButtons sortPlayerData={sortPlayerData} playerData={playerData} attribute="clearTime" />
       <SortButtons sortPlayerData={sortPlayerData} playerData={playerData} attribute="index" />
     </div>

@@ -1,9 +1,3 @@
-export type AchievementIndex = {
-  name: string;
-  index: number;
-  thumb: string;
-};
-
 export type AchievementData = {
   playerstats: {
     achievements: [

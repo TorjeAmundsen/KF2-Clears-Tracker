@@ -1,29 +1,19 @@
 import { ArrowDown } from "./ArrowDown";
 import { ArrowUp } from "./ArrowUp";
-
-type FlattenedData = {
-  name: string;
-  hoeClears: number;
-  achievements: {
-    map: string;
-    cleared: boolean;
-    clearTime: Date;
-    index: number;
-  }[];
-};
+import { FlattenedData } from "../Types";
 
 type Props = {
   sortPlayerData: (
-    attribute: "map" | "cleared" | "clearTime" | "index",
+    attribute: "mapName" | "cleared" | "clearTime" | "index",
     direction: number,
     data: FlattenedData[]
   ) => void;
   playerData: FlattenedData[];
-  attribute: "map" | "cleared" | "clearTime" | "index";
+  attribute: "mapName" | "cleared" | "clearTime" | "index";
 };
 
-const getHeaderText = (attribute: "map" | "cleared" | "clearTime" | "index") => {
-  if (attribute === "map") return "Sort by map name";
+const getHeaderText = (attribute: "mapName" | "cleared" | "clearTime" | "index") => {
+  if (attribute === "mapName") return "Sort by map name";
   if (attribute === "cleared") return "Sort by cleared/not cleared";
   if (attribute === "clearTime") return "Sort by clear time";
   if (attribute === "index") return "Sort by map release date";
@@ -36,12 +26,12 @@ export default function SortButtons({ sortPlayerData, playerData, attribute }: P
         <div className="sort-inner-wrapper">
           <div>{getHeaderText(attribute)}</div>
           <button
-            onClick={() => sortPlayerData(attribute, attribute === "map" ? 1 : -1, playerData)}
+            onClick={() => sortPlayerData(attribute, attribute === "mapName" ? 1 : -1, playerData)}
           >
             <ArrowDown />
           </button>
           <button
-            onClick={() => sortPlayerData(attribute, attribute === "map" ? -1 : 1, playerData)}
+            onClick={() => sortPlayerData(attribute, attribute === "mapName" ? -1 : 1, playerData)}
             className="sort-up"
           >
             <ArrowUp />
