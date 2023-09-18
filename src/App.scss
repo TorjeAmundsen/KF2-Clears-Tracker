@@ -50,7 +50,7 @@ button {
   text-align: center;
   gap: 12px;
   padding: 8px;
-  padding-top: 36px;
+  padding-top: 40px;
 }
 
 .player-header {
@@ -103,7 +103,7 @@ button {
   width: 100vw;
   display: flex;
   justify-content: center;
-  height: 1.75rem;
+  height: 2rem;
   margin: 0;
   padding: 0;
   position: absolute;
@@ -120,11 +120,15 @@ button {
 }
 
 .sort-inner-container {
+  display: flex;
+  height: 2rem;
+  width: 30rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.sort-inner-wrapper {
   font-family: "Play", sans-serif;
-  padding-left: 8px;
   display: flex;
   gap: 0.5rem;
-  align-items: center;
-  height: 1.75rem;
-  width: 25rem;
 }

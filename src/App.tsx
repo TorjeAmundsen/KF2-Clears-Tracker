@@ -3,46 +3,22 @@ import { hellOnEarth } from "./Achievements";
 import "./App.css";
 import Map from "./Map";
 import SortingOptions from "./SortingOptions";
+import { AchievementData, FlattenedData } from "./Types";
 
-type AchievementData = {
-  playerstats: {
-    achievements: [
-      {
-        apiname: string;
-        achieved: number;
-        unlocktime: number;
-      }
-    ];
-    gameName: string;
-    steamID: string;
-    success: boolean;
-  };
-};
-
-type FlattenedData = {
-  name: string;
-  hoeClears: number;
-  achievements: {
-    map: string;
-    cleared: boolean;
-    clearTime: Date;
-    index: number;
-  }[];
-};
-
-const URLS = {
-  TORJE: {
+const URLS = [
+  {
     name: "Torje",
-    url: "https://torjeamundsen.github.io/kf2-data/torje.json",
+    steamId: "76561198051501978",
   },
-  PITI: {
+  {
     name: "Piti",
-    url: "https://torjeamundsen.github.io/kf2-data/piti.json",
+    steamId: "76561198013938871",
   },
-};
+];
 
 const createDateOrZero = (epochInSeconds: number): Date => {
-  return new Date(epochInSeconds * 1000);
+  const epochInMs = epochInSeconds * 1000;
+  return new Date(epochInMs);
 };
 
 const flattenData = ({ playerstats }: AchievementData, name: string): FlattenedData => {
@@ -68,12 +44,12 @@ const flattenData = ({ playerstats }: AchievementData, name: string): FlattenedD
 
 export default function App() {
   const [playerData, setPlayerData] = useState<FlattenedData[]>([]);
-  /* const [hideClearedMaps, setHideClearedMaps] = useState(false); */
+  const [hideClearedMaps, setHideClearedMaps] = useState(false);
 
-  const fetchData = async (url: string, name: string) => {
-    const response = await fetch(url);
-    const data = await response.json();
-    setPlayerData((prev) => [...prev, flattenData(data, name)]);
+  const fetchData = (url: string, name: string) => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => setPlayerData((prev) => [...prev, flattenData(data, name)]));
   };
 
   const sortPlayerData = (
@@ -93,14 +69,20 @@ export default function App() {
 
   useEffect(() => {
     setPlayerData([]);
-    for (const [, player] of Object.entries(URLS)) {
-      fetchData(player.url, player.name);
+    for (const { steamId, name } of URLS) {
+      const url = "https://kf2-tracker-8bea7cdd90bc.herokuapp.com/" + steamId;
+      fetchData(url, name);
     }
   }, []);
 
   return (
     <>
-      <SortingOptions sortPlayerData={sortPlayerData} playerData={playerData} />
+      <SortingOptions
+        sortPlayerData={sortPlayerData}
+        playerData={playerData}
+        hideClearedMaps={hideClearedMaps}
+        setHideClearedMaps={setHideClearedMaps}
+      />
       {playerData.map((player) => (
         <div className="player-container">
           <div className="player-header">
@@ -111,7 +93,7 @@ export default function App() {
             </div>
           </div>
           {player.achievements.map(({ map, cleared, clearTime }) => {
-            /* if (hideClearedMaps && !cleared) return; */
+            if (hideClearedMaps && cleared) return;
             return <Map map={map} cleared={cleared} clearTime={clearTime} />;
           })}
         </div>

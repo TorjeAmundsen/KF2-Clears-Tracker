@@ -33,13 +33,20 @@ export default function SortButtons({ sortPlayerData, playerData, attribute }: P
   return (
     <>
       <div className="sort-inner-container">
-        <div>{getHeaderText(attribute)}</div>
-        <button onClick={() => sortPlayerData(attribute, 1, playerData)}>
-          <ArrowDown />
-        </button>
-        <button onClick={() => sortPlayerData(attribute, -1, playerData)} className="sort-up">
-          <ArrowUp />
-        </button>
+        <div className="sort-inner-wrapper">
+          <div>{getHeaderText(attribute)}</div>
+          <button
+            onClick={() => sortPlayerData(attribute, attribute === "map" ? 1 : -1, playerData)}
+          >
+            <ArrowDown />
+          </button>
+          <button
+            onClick={() => sortPlayerData(attribute, attribute === "map" ? -1 : 1, playerData)}
+            className="sort-up"
+          >
+            <ArrowUp />
+          </button>
+        </div>
       </div>
     </>
   );

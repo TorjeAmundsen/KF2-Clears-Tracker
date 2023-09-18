@@ -1,15 +1,5 @@
 import SortButtons from "./SortButtons";
-
-type FlattenedData = {
-  name: string;
-  hoeClears: number;
-  achievements: {
-    map: string;
-    cleared: boolean;
-    clearTime: Date;
-    index: number;
-  }[];
-};
+import { FlattenedData } from "./Types";
 
 type Props = {
   sortPlayerData: (
@@ -18,11 +8,21 @@ type Props = {
     data: FlattenedData[]
   ) => void;
   playerData: FlattenedData[];
+  hideClearedMaps: boolean;
+  setHideClearedMaps: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function SortingOptions({ sortPlayerData, playerData }: Props) {
+export default function SortingOptions({
+  sortPlayerData,
+  playerData,
+  hideClearedMaps,
+  setHideClearedMaps,
+}: Props) {
   return (
     <div className="sort-container">
+      <button onClick={() => setHideClearedMaps((prev) => !prev)}>
+        {hideClearedMaps ? "Show " : "Hide "}cleared maps
+      </button>
       <SortButtons sortPlayerData={sortPlayerData} playerData={playerData} attribute="map" />
       <SortButtons sortPlayerData={sortPlayerData} playerData={playerData} attribute="clearTime" />
       <SortButtons sortPlayerData={sortPlayerData} playerData={playerData} attribute="index" />
