@@ -21,9 +21,10 @@ export const hellOnEarth = [
   { name: "Airship", index: 216, thumb: "" },
   { name: "Lockdown", index: 221, thumb: "" },
   { name: "Monster Ball", index: 226, thumb: "" },
+  { name: "Santa's Workshop", index: 232, thumb: "" },
   { name: "Shopping Spree", index: 237, thumb: "" },
   { name: "Spillway", index: 242, thumb: "" },
-  { name: "Steam Fortress", index: 247, thumb: "" },
+  /* { name: "Steam Fortress", index: 247, thumb: "" }, */
   { name: "Ashwood Asylum", index: 258, thumb: "" },
   { name: "Sanitarium", index: 265, thumb: "" },
   { name: "Biolapse", index: 269, thumb: "" },
