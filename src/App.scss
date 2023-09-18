@@ -41,6 +41,27 @@ button {
   cursor: pointer;
 }
 
+.map-list-container {
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  border-collapse: collapse;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  padding: 8px;
+  padding-top: 40px;
+}
+
+.map-list-item {
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid hsl(0, 0%, 10%);
+  border-radius: 8px;
+  height: 3.25rem;
+}
+
 .player-container {
   width: 20rem;
   display: flex;

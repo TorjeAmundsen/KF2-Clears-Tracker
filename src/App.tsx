@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { hellOnEarth } from "./Achievements";
 import "./App.css";
-import Map from "./Map";
-import SortingOptions from "./SortingOptions";
-import { AchievementData, FlattenedData } from "./Types";
+import Map from "./components/Map";
+import SortingOptions from "./components/SortingOptions";
+import { AchievementData, FlattenedData, AchievementIndex } from "./Types";
 
 const URLS = [
   {
@@ -21,16 +21,24 @@ const createDateOrZero = (epochInSeconds: number): Date => {
   return new Date(epochInMs);
 };
 
+const createMapList = (data: FlattenedData[]) => {
+  const mapList = [];
+  for (const map of data[0].achievements) {
+    mapList.push(map.mapName);
+  }
+  return mapList;
+};
+
 const flattenData = ({ playerstats }: AchievementData, name: string): FlattenedData => {
   const achievementData = [];
   let clears = 0;
-  for (const [, value] of Object.entries(hellOnEarth)) {
-    const cleared = playerstats.achievements[value.index].achieved === 1;
+  for (const map of hellOnEarth) {
+    const cleared = playerstats.achievements[map.index].achieved === 1;
     const data = {
-      map: value.name,
+      mapName: map.name,
       cleared: cleared,
-      clearTime: createDateOrZero(playerstats.achievements[value.index].unlocktime),
-      index: value.index,
+      clearTime: createDateOrZero(playerstats.achievements[map.index].unlocktime),
+      index: map.index,
     };
     achievementData.push(data);
     if (cleared) clears++;
@@ -53,7 +61,7 @@ export default function App() {
   };
 
   const sortPlayerData = (
-    attribute: "map" | "cleared" | "clearTime" | "index",
+    attribute: "mapName" | "cleared" | "clearTime" | "index",
     direction: number,
     data: FlattenedData[]
   ) => {
@@ -75,6 +83,8 @@ export default function App() {
     }
   }, []);
 
+  const mapList = createMapList(playerData);
+
   return (
     <>
       <SortingOptions
@@ -83,6 +93,11 @@ export default function App() {
         hideClearedMaps={hideClearedMaps}
         setHideClearedMaps={setHideClearedMaps}
       />
+      <div className="map-list-container">
+        {mapList.map((mapName) => (
+          <div className="map-list-item">{mapName}</div>
+        ))}
+      </div>
       {playerData.map((player) => (
         <div className="player-container">
           <div className="player-header">
@@ -92,9 +107,9 @@ export default function App() {
               {((player.hoeClears / player.achievements.length) * 100).toFixed(0)}%)
             </div>
           </div>
-          {player.achievements.map(({ map, cleared, clearTime }) => {
+          {player.achievements.map(({ mapName, cleared, clearTime }) => {
             if (hideClearedMaps && cleared) return;
-            return <Map map={map} cleared={cleared} clearTime={clearTime} />;
+            return <Map mapName={mapName} cleared={cleared} clearTime={clearTime} />;
           })}
         </div>
       ))}

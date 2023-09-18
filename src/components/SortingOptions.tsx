@@ -1,5 +1,5 @@
 import SortButtons from "./SortButtons";
-import { FlattenedData } from "./Types";
+import { FlattenedData } from "../Types";
 
 type Props = {
   sortPlayerData: (

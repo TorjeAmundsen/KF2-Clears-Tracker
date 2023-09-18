@@ -1,3 +1,9 @@
+export type AchievementIndex = {
+  name: string;
+  index: number;
+  thumb: string;
+};
+
 export type AchievementData = {
   playerstats: {
     achievements: [
@@ -17,7 +23,7 @@ export type FlattenedData = {
   name: string;
   hoeClears: number;
   achievements: {
-    map: string;
+    mapName: string;
     cleared: boolean;
     clearTime: Date;
     index: number;

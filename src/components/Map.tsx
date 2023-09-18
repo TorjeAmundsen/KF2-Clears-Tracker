@@ -1,13 +1,13 @@
 type MapData = {
-  map: string;
+  mapName: string;
   cleared: boolean;
   clearTime: Date;
 };
 
-export default function Map({ map, cleared, clearTime }: MapData) {
+export default function Map({ mapName, cleared, clearTime }: MapData) {
   return (
     <div className={"single-map" + (cleared ? " cleared-hoe" : " not-cleared")}>
-      <div className="map-name">{map}</div>
+      <div className="map-name">{mapName}</div>
       <div className="inner-left">
         <div className="cleared-text">{cleared ? "Cleared" : "Not cleared"}</div>
         <div className="clear-time">
